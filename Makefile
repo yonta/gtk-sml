@@ -7,7 +7,7 @@ TARGET=gtk
 
 all: $(TARGET)
 
-$(TARGET): gtk.o
+$(TARGET): $(TARGET).o
 	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
 
 clean:
