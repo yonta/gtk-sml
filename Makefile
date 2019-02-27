@@ -4,7 +4,7 @@ CFLAGS=-Wall -Wextra `pkg-config --cflags gtk+-3.0`
 LDFLAGS=`pkg-config --libs gtk+-3.0`
 TARGET=gtk
 
-.PHONY: all gtk clean
+.PHONY: all clean
 
 all: $(TARGET) main.o
 
