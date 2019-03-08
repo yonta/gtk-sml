@@ -2,20 +2,21 @@ SMLSHARP = smlsharp
 CC=gcc
 CFLAGS=-Wall -Wextra `pkg-config --cflags gtk+-3.0`
 LDFLAGS=`pkg-config --libs gtk+-3.0`
-TARGET=gtk
+TARGET=cmain
+TARGET2=smlmain
 
 .PHONY: all clean
 
-all: $(TARGET) main.o
+all: $(TARGET) $(TARGET2)
 
 $(TARGET): $(TARGET).o macrowrapper.o
 	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
 
-# main: main.o main.smi macrowrapper.o
-# 	$(SMLSHARP) $(LDFLAGS) -o $@ main.smi $(LIBS)
+$(TARGET2): $(TARGET2).o $(TARGET2).smi macrowrapper.o
+	$(SMLSHARP) $(LDFLAGS) -o $@ $(TARGET2).smi macrowrapper.o $(LIBS)
 
-main.o: main.sml main.smi
-	$(SMLSHARP) $(SMLFLAGS) -o $@ -c main.sml
+$(TARGET2).o: $(TARGET2).sml $(TARGET2).smi
+	$(SMLSHARP) $(SMLFLAGS) -o $@ -c $(TARGET2).sml
 
 clean:
-	rm -f $(TARGET) *.o
+	rm -f $(TARGET) $(TARGET2) *.o
